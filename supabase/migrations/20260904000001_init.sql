@@ -58,6 +58,19 @@ as $$
   );
 $$;
 
+-- Reads the caller's own role without recursing through profiles' RLS. An
+-- inline `(select role from profiles ...)` inside a profiles policy is infinite
+-- recursion, and Postgres raises rather than denying — which would break
+-- legitimate self-updates too, not just escalation.
+create function current_profile_role()
+returns user_role
+language sql
+stable
+security definer set search_path = ''
+as $$
+  select role from public.profiles where id = (select auth.uid());
+$$;
+
 -- ---------------------------------------------------------------- projects --
 
 create table projects (
@@ -174,10 +187,11 @@ alter table documents       enable row level security;
 create policy profiles_select_self on profiles
   for select to authenticated using (id = (select auth.uid()) or is_staff());
 
+-- Users may edit their own name and phone, but not promote themselves.
 create policy profiles_update_self on profiles
   for update to authenticated
   using (id = (select auth.uid()))
-  with check (id = (select auth.uid()) and role = (select role from profiles where id = (select auth.uid())));
+  with check (id = (select auth.uid()) and role = current_profile_role());
 
 create policy profiles_staff_write on profiles
   for all to authenticated using (is_staff()) with check (is_staff());
