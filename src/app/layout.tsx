@@ -1,7 +1,6 @@
 import { Toaster } from '@/components/ui/sonner';
 import { fontVariables } from '@/components/themes/font.config';
 import QueryProvider from '@/components/layout/query-provider';
-import { cn } from '@/lib/utils';
 import type { Metadata, Viewport } from 'next';
 import NextTopLoader from 'nextjs-toploader';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
