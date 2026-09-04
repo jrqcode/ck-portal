@@ -1,19 +1,37 @@
 import type { NextConfig } from 'next';
 import { withSentryConfig } from '@sentry/nextjs';
 
+function readSupabaseHostname() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  if (!url) return null;
+  try {
+    return new URL(url).hostname || null;
+  } catch {
+    return null;
+  }
+}
+
+const supabaseHostname = readSupabaseHostname();
+
 // Define the base Next.js configuration
 const baseConfig: NextConfig = {
   output: process.env.BUILD_STANDALONE === 'true' ? 'standalone' : undefined,
   images: {
     // Progress photos are served from Supabase Storage as signed URLs. Without
     // this pattern next/image blocks every one of them.
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: process.env.NEXT_PUBLIC_SUPABASE_URL?.replace('https://', '') ?? '',
-        pathname: '/storage/v1/object/sign/**'
-      }
-    ]
+    //
+    // Built conditionally: an empty hostname fails the production build
+    // outright, so a checkout with no Supabase env set must produce no pattern
+    // rather than a blank one.
+    remotePatterns: supabaseHostname
+      ? [
+          {
+            protocol: 'https' as const,
+            hostname: supabaseHostname,
+            pathname: '/storage/v1/object/sign/**'
+          }
+        ]
+      : []
   },
   transpilePackages: ['geist'],
   compiler: {
