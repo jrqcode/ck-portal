@@ -1,0 +1,156 @@
+/* ============================================================================
+   Caiden-Keller Homes — the single theme.
+   Every value here is defined in /DESIGN.md. Do not add a colour that isn't.
+   Light only, by design: there is no dark mode and no theme switcher.
+   ============================================================================ */
+
+:root {
+  --header-height: calc(var(--spacing, 0.25rem) * 14 + 1px);
+
+  /* -- DESIGN.md: Brand & Accent ------------------------------------------ */
+  --ck-primary: #d92227;
+  --ck-primary-hover: #c21e22;
+  --ck-primary-active: #a81a1e;
+  --ck-primary-disabled: #f2c2c3;
+  --ck-primary-tint: #fdf2f2;
+  /* Decorative only, homeowner area only. Never behind or as text. */
+  --ck-gold: #b6a071;
+  --ck-gold-soft: #c1b086;
+
+  /* -- DESIGN.md: Status --------------------------------------------------- */
+  --ck-status-progress: #b45309;
+  --ck-status-progress-tint: #fef6ec;
+  --ck-status-complete: #15803d;
+  --ck-status-complete-tint: #f0faf3;
+  --ck-status-hold: #6a6a6a;
+
+  /* -- DESIGN.md: Surface, Text, Hairlines --------------------------------- */
+  --ck-canvas: #ffffff;
+  --ck-surface-soft: #f7f7f7;
+  --ck-surface-strong: #f2f2f2;
+  --ck-ink: #222222;
+  --ck-body: #3f3f3f;
+  --ck-muted: #6a6a6a;
+  --ck-muted-soft: #929292;
+  --ck-hairline: #dddddd;
+  --ck-hairline-soft: #ebebeb;
+  --ck-border-strong: #c1c1c1;
+
+  /* -- DESIGN.md: Elevation ------------------------------------------------ */
+  --ck-shadow-float:
+    rgba(0, 0, 0, 0.02) 0 0 0 1px, rgba(0, 0, 0, 0.04) 0 2px 6px 0, rgba(0, 0, 0, 0.1) 0 4px 8px 0;
+
+  /* -- shadcn surface mapping ---------------------------------------------- */
+  --background: var(--ck-canvas);
+  --foreground: var(--ck-ink);
+  --card: var(--ck-canvas);
+  --card-foreground: var(--ck-ink);
+  --popover: var(--ck-canvas);
+  --popover-foreground: var(--ck-ink);
+
+  --primary: var(--ck-primary);
+  --primary-foreground: #ffffff;
+  --secondary: var(--ck-surface-strong);
+  --secondary-foreground: var(--ck-ink);
+  --muted: var(--ck-surface-soft);
+  --muted-foreground: var(--ck-muted);
+  --accent: var(--ck-surface-soft);
+  --accent-foreground: var(--ck-ink);
+  --destructive: var(--ck-primary-active);
+  --destructive-foreground: #ffffff;
+
+  --border: var(--ck-hairline);
+  --input: var(--ck-border-strong);
+  --ring: var(--ck-primary);
+
+  /* DESIGN.md shape scale */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 32px;
+  --radius: var(--radius-sm);
+
+  /* Sidebar is admin-only chrome. */
+  --sidebar: var(--ck-canvas);
+  --sidebar-foreground: var(--ck-body);
+  --sidebar-primary: var(--ck-primary);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: var(--ck-primary-tint);
+  --sidebar-accent-foreground: var(--ck-primary);
+  --sidebar-border: var(--ck-hairline);
+  --sidebar-ring: var(--ck-primary);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* DESIGN.md tokens exposed as utilities: bg-gold, text-status-complete, … */
+  --color-gold: var(--ck-gold);
+  --color-gold-soft: var(--ck-gold-soft);
+  --color-ink: var(--ck-ink);
+  --color-body: var(--ck-body);
+  --color-muted-soft: var(--ck-muted-soft);
+  --color-hairline: var(--ck-hairline);
+  --color-hairline-soft: var(--ck-hairline-soft);
+  --color-surface-soft: var(--ck-surface-soft);
+  --color-surface-strong: var(--ck-surface-strong);
+  --color-primary-hover: var(--ck-primary-hover);
+  --color-primary-active: var(--ck-primary-active);
+  --color-primary-tint: var(--ck-primary-tint);
+  --color-status-progress: var(--ck-status-progress);
+  --color-status-progress-tint: var(--ck-status-progress-tint);
+  --color-status-complete: var(--ck-status-complete);
+  --color-status-complete-tint: var(--ck-status-complete-tint);
+  --color-status-hold: var(--ck-status-hold);
+
+  --radius-xs: var(--radius-xs);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+
+  --font-sans: var(--font-inter), -apple-system, system-ui, Roboto, 'Helvetica Neue', sans-serif;
+
+  --shadow-float: var(--ck-shadow-float);
+}
+
+body {
+  @apply overscroll-none;
+  font-family: var(--font-sans);
+}
+
+/* DESIGN.md: focus is always visible — 2px primary ring at 2px offset. */
+@layer base {
+  :where(a, button, input, textarea, select, [tabindex]):focus-visible {
+    outline: 2px solid var(--ck-primary);
+    outline-offset: 2px;
+  }
+}
