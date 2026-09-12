@@ -70,9 +70,28 @@ who reaches the URL can sign in as either demo account. Setting
 `NEXT_PUBLIC_DEMO_MODE=false` removes the buttons and the switcher; the seeded
 data can be left alone or deleted from the admin area.
 
-Real photography sells this far better than the generated placeholders — drop
-job-site photos into `demo-photos/` and re-run the seed. See
-[demo-photos/README.md](./demo-photos/README.md).
+### Photos
+
+The seed ships with 24 CC0 (public domain) construction photos in
+`scripts/demo/stock/`, matched to the build stage they belong to — framing shots
+on framing updates, kitchens on the finishing ones. Provenance and licence for
+each is in `scripts/demo/photo-sources.json`.
+
+Real Caiden-Keller photography would sell it better still: drop job-site photos
+into `demo-photos/` and they take precedence. See
+[demo-photos/README.md](./demo-photos/README.md) for the naming that puts each
+photo on the right stage.
+
+### Re-seeding later
+
+```bash
+bun run seed:demo --skip-accounts   # rebuild the builds, leave the accounts alone
+bun run seed:demo --no-stock        # use the generated illustrations instead
+bun run seed:demo --dry-run         # build it all locally, write nothing
+```
+
+`--skip-accounts` reuses the accounts already in the project and does every write
+as the demo builder through RLS, so it needs no service-role key.
 
 ## Documentation
 

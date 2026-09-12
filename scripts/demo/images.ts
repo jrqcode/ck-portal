@@ -15,6 +15,7 @@
 import { readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
 import sharp from 'sharp';
+import { BUILD_STAGES } from '../../src/constants/build-stages';
 
 const WIDTH = 1600;
 const HEIGHT = 1200;
@@ -261,29 +262,112 @@ export async function drawStagePhoto(
 const PHOTO_EXTENSIONS = new Set(['.jpg', '.jpeg', '.png', '.webp']);
 
 /**
- * Real photos to use instead, if there are any. Sorted so the order is stable
- * between runs — name them 01-…, 02-… and they upload in that order.
+ * Words that put a photo on a build stage, so a foundation photo lands on a
+ * foundation update rather than wherever the alphabet happens to put it. Any
+ * file whose name contains one of these goes to that stage; anything else joins
+ * the general pool and is used wherever a stage has nothing of its own.
  */
-export async function loadSuppliedPhotos(dir: string): Promise<Buffer[]> {
+const STAGE_KEYWORDS: string[][] = [
+  ['permit', 'plan', 'drawing', 'design'],
+  ['site', 'excavat', 'grading', 'clearing'],
+  ['foundation', 'footing', 'concrete', 'rebar'],
+  ['framing', 'frame', 'lumber', 'stud'],
+  ['roof', 'shingle', 'window', 'envelope', 'sheathing'],
+  ['mechanical', 'plumbing', 'electric', 'hvac', 'wiring', 'pipe'],
+  ['insulation', 'drywall'],
+  ['interior', 'cabinet', 'kitchen', 'floor', 'tile', 'paint', 'trim'],
+  ['exterior', 'landscap', 'driveway', 'sod', 'lawn'],
+  ['inspection', 'pdi', 'walkthrough'],
+  ['closing', 'possession', 'keys', 'finished']
+];
+
+/** Photos to draw on, grouped by BUILD_STAGES index. */
+export type PhotoLibrary = {
+  byStage: Map<number, Buffer[]>;
+  general: Buffer[];
+  description: string;
+};
+
+export const EMPTY_LIBRARY: PhotoLibrary = {
+  byStage: new Map(),
+  general: [],
+  description: 'generated illustrations'
+};
+
+/**
+ * One photo for an update. Real photography for the stage if there is any, then
+ * anything else supplied, then a drawing — so a half-filled photo folder still
+ * produces a complete demo instead of a mix of photos and empty frames.
+ */
+export async function photoFor(
+  library: PhotoLibrary,
+  stage: number,
+  index: number,
+  seed: number
+): Promise<Buffer> {
+  const pool = library.byStage.get(stage) ?? [];
+  if (pool.length) return pool[index % pool.length];
+  if (library.general.length) return library.general[(seed + index) % library.general.length];
+  return drawStagePhoto(stage, seed, index);
+}
+
+function stageForFilename(name: string): number | null {
+  const lower = name.toLowerCase();
+  // An explicit "07-" prefix wins, for when the keywords guess wrong.
+  const prefix = /^(\d{1,2})[-_]/.exec(lower);
+  if (prefix) {
+    const index = Number(prefix[1]);
+    if (index >= 0 && index < BUILD_STAGES.length) return index;
+  }
+  const found = STAGE_KEYWORDS.findIndex((words) => words.some((word) => lower.includes(word)));
+  return found === -1 ? null : found;
+}
+
+/** Shrink whatever we were handed to something a web page should be serving. */
+async function normalise(input: Buffer) {
+  return sharp(input)
+    .rotate()
+    .resize(1600, 1200, { fit: 'cover' })
+    .jpeg({ quality: 82, mozjpeg: true })
+    .toBuffer();
+}
+
+function addToLibrary(library: PhotoLibrary, stage: number | null, image: Buffer) {
+  if (stage === null) {
+    library.general.push(image);
+    return;
+  }
+  const pool = library.byStage.get(stage);
+  if (pool) pool.push(image);
+  else library.byStage.set(stage, [image]);
+}
+
+/**
+ * Photos from a folder, grouped by stage. Used for both `demo-photos/` (yours)
+ * and `scripts/demo/stock/` (the committed CC0 set). Filenames decide the
+ * stage — see STAGE_KEYWORDS above — and the list is sorted so runs repeat.
+ */
+export async function loadPhotoFolder(dir: string, label: string): Promise<PhotoLibrary> {
   let names: string[];
   try {
     names = await readdir(dir);
   } catch {
-    return [];
+    return EMPTY_LIBRARY;
   }
 
   const usable = names
     .filter((name) => PHOTO_EXTENSIONS.has(path.extname(name).toLowerCase()))
     .toSorted();
+  if (!usable.length) return EMPTY_LIBRARY;
 
-  return Promise.all(
-    usable.map(async (name) =>
-      // Normalised on the way in: a 6 MB phone photo does not belong in a demo.
-      sharp(await readFile(path.join(dir, name)))
-        .rotate()
-        .resize(1600, 1200, { fit: 'cover' })
-        .jpeg({ quality: 82, mozjpeg: true })
-        .toBuffer()
-    )
-  );
+  const library: PhotoLibrary = {
+    byStage: new Map(),
+    general: [],
+    description: `${usable.length} ${label}`
+  };
+
+  for (const name of usable) {
+    addToLibrary(library, stageForFilename(name), await normalise(await readFile(path.join(dir, name))));
+  }
+  return library;
 }
