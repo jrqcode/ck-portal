@@ -361,8 +361,10 @@ async function main() {
           if (rowError) throw new Error(`Could not record a photo: ${rowError.message}`);
         }
 
-        // The homeowner hero falls back to this when an update has no photo.
-        if (!update.draft && !coverPath) coverPath = storagePath;
+        // The homeowner hero falls back to this when the newest update has no
+        // photo of its own. Updates run oldest first, so the last write wins and
+        // the cover ends up being the most recent progress photo, not the first.
+        if (!update.draft && index === 0) coverPath = storagePath;
       }
     }
 
