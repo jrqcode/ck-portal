@@ -48,3 +48,7 @@ next-env.d.ts
 
 # Sentry Config File
 .env.sentry-build-plugin
+
+# demo photos — supplied locally for the seeded demo, never committed
+/demo-photos/*
+!/demo-photos/README.md

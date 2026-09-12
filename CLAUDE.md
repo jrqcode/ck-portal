@@ -69,6 +69,22 @@ the "Two Densities" table in DESIGN.md.
 - `src/lib/supabase/admin.ts` bypasses RLS. Use it only for invites, never as a
   shortcut around a missing policy.
 
+### Demo mode
+
+`NEXT_PUBLIC_DEMO_MODE=true` adds one-click sign-in as two seeded accounts, plus
+a bar for switching between the builder and homeowner views — a browser holds one
+Supabase session, so without it, seeing both sides means clearing cookies. It
+exists to show the portal to someone who has no account.
+
+It is off by default and **must be off once real homeowners are invited**: while
+it is on, anyone who reaches the URL can sign in. `signInAsDemo` is gated on the
+flag and on the two addresses in `src/lib/demo.ts`, so it can never sign anyone
+into a real account.
+
+The sample builds come from `bun run seed:demo` (`scripts/seed-demo.ts`). It uses
+the service-role key for one thing — creating the demo auth users — and makes
+every other write as the demo staff account, through RLS.
+
 ## Storage
 
 Two private buckets, `project-photos` and `project-documents`, keyed

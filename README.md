@@ -36,6 +36,44 @@ bun dev
    then flip the row in `profiles` to `role = 'staff'`. Every subsequent person
    can be invited from within the portal.
 
+## Showing the portal (demo mode)
+
+For walking someone through the portal before there are real clients on it.
+
+1. Set both in `.env.local` (and in Vercel, if you are showing a deployment):
+
+   ```bash
+   NEXT_PUBLIC_DEMO_MODE=true
+   DEMO_PASSWORD=<pick something you can say out loud>
+   ```
+
+2. Seed the sample builds:
+
+   ```bash
+   bun run seed:demo
+   ```
+
+   That creates two sign-in accounts — `builder@ck-demo.ca` and
+   `homeowner@ck-demo.ca` — plus four fictional builds with a year of progress
+   updates, photos, milestones, and downloadable documents. Everything is dated
+   relative to the day you run it, so re-running refreshes the timeline. It is
+   safe to run again: it clears the previous demo data first and touches nothing
+   else.
+
+3. Open `/sign-in`. There are now two buttons, **Builder view** and **Homeowner
+   view** — no password to type. A bar across the top of either area switches
+   between them in one click, which matters because a browser holds one session
+   at a time.
+
+**Turn demo mode off before inviting a real homeowner.** While it is on, anyone
+who reaches the URL can sign in as either demo account. Setting
+`NEXT_PUBLIC_DEMO_MODE=false` removes the buttons and the switcher; the seeded
+data can be left alone or deleted from the admin area.
+
+Real photography sells this far better than the generated placeholders — drop
+job-site photos into `demo-photos/` and re-run the seed. See
+[demo-photos/README.md](./demo-photos/README.md).
+
 ## Documentation
 
 - **[DESIGN.md](./DESIGN.md)** — the design system. Binding for all UI work.
@@ -50,6 +88,7 @@ bun dev
 | `bun run typecheck` | TypeScript, no emit |
 | `bun run lint` | oxlint |
 | `bun run format` | oxfmt |
+| `bun run seed:demo` | Seed the demo accounts and sample builds |
 
 ## Credits
 
