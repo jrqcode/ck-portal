@@ -83,7 +83,13 @@ into a real account.
 
 The sample builds come from `bun run seed:demo` (`scripts/seed-demo.ts`). It uses
 the service-role key for one thing — creating the demo auth users — and makes
-every other write as the demo staff account, through RLS.
+every other write as the demo staff account, through RLS. `--skip-accounts`
+leaves the accounts alone and therefore needs no service-role key at all.
+
+Photos come from `scripts/demo/stock/` (24 CC0 images, provenance in
+`photo-sources.json`), matched to build stage by filename; `demo-photos/` wins
+if you put anything there, and any stage with no photo falls back to a generated
+illustration.
 
 ## Storage
 

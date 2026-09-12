@@ -1,0 +1,245 @@
+{
+  "note": "Provenance for the photos in scripts/demo/stock/. Every image is CC0 1.0 (public domain dedication) - no attribution required, commercial use permitted. Found through the Openverse API. `stage` indexes into src/constants/build-stages.ts; stages with no entry fall back to the generated illustration. Drop your own photos in demo-photos/ and they win over this set.",
+  "photos": [
+    {
+      "file": "stock/00-permits-plans-a.jpg",
+      "stage": 0,
+      "license": "cc0-1.0",
+      "source": "rawpixel",
+      "title": "construction worker goes plans site",
+      "creator": null,
+      "url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvYnMxNDU3LWltYWdlLWt3dnlseWpsLmpwZw.jpg",
+      "landing": "https://www.rawpixel.com/image/5928035/photo-image-public-domain-hands-person"
+    },
+    {
+      "file": "stock/00-permits-plans-b.jpg",
+      "stage": 0,
+      "license": "cc0-1.0",
+      "source": "rawpixel",
+      "title": "Parcs et Jardins des Environs",
+      "creator": null,
+      "url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcGQzNS0wMzA4MS5qcGc.jpg",
+      "landing": "https://www.rawpixel.com/image/431527/free-illustration-image-garden-lithograph-house"
+    },
+    {
+      "file": "stock/01-sitework-a.jpg",
+      "stage": 1,
+      "license": "cc0-1.0",
+      "source": "rawpixel",
+      "title": "Builders construction site",
+      "creator": null,
+      "url": "https://images.rawpixel.com/editor_1024/cHJpdmF0ZS9zdGF0aWMvaW1hZ2Uvd2Vic2l0ZS8yMDIyLTA0L2xyL2Zya2VtcHRlbl9zaXRlX2NvbnN0cnVjdGlvbl93b3JrZXJzXzAtaW1hZ2Uta3liYjc4ZncuanBn.jpg",
+      "landing": "https://www.rawpixel.com/image/6022306/photo-image-public-domain-person-mountain"
+    },
+    {
+      "file": "stock/02-foundation-a.jpg",
+      "stage": 2,
+      "license": "cc0-1.0",
+      "source": "rawpixel",
+      "title": "Free construction site worker image",
+      "creator": null,
+      "url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvZnJ1bnNwbGFzaDE4NDA3LWltYWdlLWt3dnloemp2LmpwZw.jpg",
+      "landing": "https://www.rawpixel.com/image/5927506/photo-image-public-domain-construction-free"
+    },
+    {
+      "file": "stock/02-foundation-b.jpg",
+      "stage": 2,
+      "license": "cc0-1.0",
+      "source": "rawpixel",
+      "title": "Construction site",
+      "creator": null,
+      "url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvZnJjb25zdHJ1Y3Rpb25fc2l0ZV9idWlsZF8xNTEwNTYxLWltYWdlLWt5YmR5ZDM5LmpwZw.jpg",
+      "landing": "https://www.rawpixel.com/image/6039202/construction-site-free-public-domain-cc0-photo"
+    },
+    {
+      "file": "stock/03-framing-a.jpg",
+      "stage": 3,
+      "license": "cc0-1.0",
+      "source": "rawpixel",
+      "title": "New house construction",
+      "creator": null,
+      "url": "https://images.rawpixel.com/editor_1024/cHJpdmF0ZS9zdGF0aWMvaW1hZ2Uvd2Vic2l0ZS8yMDIyLTA0L2xyL2ZybmV3X2hvbWVfY29uc3RydWN0aW9uX2J1aWxkXzctaW1hZ2Uta3liZDNzdGkuanBn.jpg",
+      "landing": "https://www.rawpixel.com/image/6034225/photo-image-frame-public-domain-wood"
+    },
+    {
+      "file": "stock/03-framing-b.jpg",
+      "stage": 3,
+      "license": "cc0-1.0",
+      "source": "rawpixel",
+      "title": "New house construction",
+      "creator": null,
+      "url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvZnJuZXdfaG9tZV9jb25zdHJ1Y3Rpb25fYnVpbGRfMi1pbWFnZS1reWJkM3E5NS5qcGc.jpg",
+      "landing": "https://www.rawpixel.com/image/6034221/photo-image-frame-public-domain-wood"
+    },
+    {
+      "file": "stock/03-framing-c.jpg",
+      "stage": 3,
+      "license": "cc0-1.0",
+      "source": "rawpixel",
+      "title": "House construction",
+      "creator": null,
+      "url": "https://images.rawpixel.com/editor_1024/cHJpdmF0ZS9zdGF0aWMvaW1hZ2Uvd2Vic2l0ZS8yMDIyLTA0L2xyL2ZyaW5kdXN0cnlfY29uc3RydWN0aW9uX2J1aWxkXzE1NTMyNTMtaW1hZ2Uta3liYjlsNG0uanBn.jpg",
+      "landing": "https://www.rawpixel.com/image/6022834/photo-image-frame-public-domain-wood"
+    },
+    {
+      "file": "stock/04-roofing-a.jpg",
+      "stage": 4,
+      "license": "cc0-1.0",
+      "source": "rawpixel",
+      "title": "House construction Netherlands",
+      "creator": null,
+      "url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvZmw0OTk4NTE3Njg5Ni1pbWFnZS1reWNpcXgydC5qcGc.jpg",
+      "landing": "https://www.rawpixel.com/image/6075111/house-under-construction-the-netherlands"
+    },
+    {
+      "file": "stock/04-roofing-b.jpg",
+      "stage": 4,
+      "license": "cc0-1.0",
+      "source": "rawpixel",
+      "title": "House construction Netherlands",
+      "creator": null,
+      "url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvZmw0OTk4NDY1NjM4OC1pbWFnZS1reWNpcXZuOS5qcGc.jpg",
+      "landing": "https://www.rawpixel.com/image/6075102/house-under-construction-the-netherlands"
+    },
+    {
+      "file": "stock/05-mechanical-a.jpg",
+      "stage": 5,
+      "license": "cc0-1.0",
+      "source": "rawpixel",
+      "title": "Pipes meter gray wall",
+      "creator": "Scott Webb",
+      "url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvYTAwNS1zY290dHctNzE2LmpwZw.jpg",
+      "landing": "https://www.rawpixel.com/image/430874/free-photo-image-plumbing-pipes-meter"
+    },
+    {
+      "file": "stock/05-mechanical-b.jpg",
+      "stage": 5,
+      "license": "cc0-1.0",
+      "source": "rawpixel",
+      "title": "Sprinkler system",
+      "creator": null,
+      "url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcHg2MTE2MDQtaW1hZ2Uta3d2dmRiYm8uanBn.jpg",
+      "landing": "https://www.rawpixel.com/image/5907868/sprinkler-system-free-public-domain-cc0-image"
+    },
+    {
+      "file": "stock/05-mechanical-c.jpg",
+      "stage": 5,
+      "license": "cc0-1.0",
+      "source": "rawpixel",
+      "title": null,
+      "creator": null,
+      "url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcHg2NzY1ODItaW1hZ2Uta3d5b3d1NW8uanBn.jpg",
+      "landing": "https://www.rawpixel.com/image/5947474/free-public-domain-cc0-photo"
+    },
+    {
+      "file": "stock/05-mechanical-d.jpg",
+      "stage": 5,
+      "license": "cc0-1.0",
+      "source": "rawpixel",
+      "title": null,
+      "creator": null,
+      "url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcHg4NDMxMTAtaW1hZ2Uta3d5b2Q4am8uanBn.jpg",
+      "landing": "https://www.rawpixel.com/image/5943800/free-public-domain-cc0-photo"
+    },
+    {
+      "file": "stock/07-interior-a.jpg",
+      "stage": 7,
+      "license": "cc0-1.0",
+      "source": "rawpixel",
+      "title": "Free modern kitchen interior image",
+      "creator": null,
+      "url": "https://images.rawpixel.com/editor_1024/cHJpdmF0ZS9zdGF0aWMvaW1hZ2Uvd2Vic2l0ZS8yMDIyLTA0L2xyL3B4MTI3NDc2NS1pbWFnZS1rd3Z3NXJ4dy5qcGc.jpg",
+      "landing": "https://www.rawpixel.com/image/5912749/image-public-domain-kitchen-interior"
+    },
+    {
+      "file": "stock/07-interior-b.jpg",
+      "stage": 7,
+      "license": "cc0-1.0",
+      "source": "rawpixel",
+      "title": "Free modern kitchen interior image",
+      "creator": null,
+      "url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcHgxMjczNjAzLWltYWdlLWt3dnkwOHJnLmpwZw.jpg",
+      "landing": "https://www.rawpixel.com/image/5924425/photo-image-public-domain-kitchen-living-room"
+    },
+    {
+      "file": "stock/07-interior-c.jpg",
+      "stage": 7,
+      "license": "cc0-1.0",
+      "source": "rawpixel",
+      "title": "Free modern kitchen interior image",
+      "creator": null,
+      "url": "https://images.rawpixel.com/editor_1024/cHJpdmF0ZS9zdGF0aWMvaW1hZ2Uvd2Vic2l0ZS8yMDIyLTA0L2xyL3B4NjU4MDk1LWltYWdlLWt3dnY4ZWkxLmpwZw.jpg",
+      "landing": "https://www.rawpixel.com/image/5906894/photo-image-public-domain-kitchen-interior"
+    },
+    {
+      "file": "stock/07-interior-d.jpg",
+      "stage": 7,
+      "license": "cc0-1.0",
+      "source": "rawpixel",
+      "title": "Modern white kitchen interior",
+      "creator": null,
+      "url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvZnJkZWNvcmFjYW9fMS1pbWFnZS1reWJkeDhvaC5qcGc.jpg",
+      "landing": "https://www.rawpixel.com/image/6039071/photo-image-public-domain-minimal-wood"
+    },
+    {
+      "file": "stock/07-interior-e.jpg",
+      "stage": 7,
+      "license": "cc0-1.0",
+      "source": "rawpixel",
+      "title": "Free living room image",
+      "creator": null,
+      "url": "https://images.rawpixel.com/editor_1024/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA1L3B4NDg5Nzk3LWltYWdlLWt3dnhvZzd3LmpwZw.jpg",
+      "landing": "https://www.rawpixel.com/image/5922726/photo-image-public-domain-wooden-living-room"
+    },
+    {
+      "file": "stock/08-exterior-a.jpg",
+      "stage": 8,
+      "license": "cc0-1.0",
+      "source": "rawpixel",
+      "title": "House construction",
+      "creator": null,
+      "url": "https://images.rawpixel.com/editor_1024/cHJpdmF0ZS9zdGF0aWMvaW1hZ2Uvd2Vic2l0ZS8yMDIyLTA0L2xyL2ZybmV3X2hvbWVfY29uc3RydWN0aW9uX2luZHVzdHJ5LWltYWdlLWt5YmIwNjNuLmpwZw.jpg",
+      "landing": "https://www.rawpixel.com/image/6020826/photo-image-public-domain-wood-house"
+    },
+    {
+      "file": "stock/08-exterior-b.jpg",
+      "stage": 8,
+      "license": "cc0-1.0",
+      "source": "rawpixel",
+      "title": null,
+      "creator": null,
+      "url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvZnJiZWF1dGlmdWxfaG9tZV9nYXJkZW5fMTY4MDc4OS1pbWFnZS1reWNpNjBwai5qcGc.jpg",
+      "landing": "https://www.rawpixel.com/image/6070690/free-public-domain-cc0-photo"
+    },
+    {
+      "file": "stock/09-inspection-a.jpg",
+      "stage": 9,
+      "license": "cc0-1.0",
+      "source": "rawpixel",
+      "title": "Engineer house construction site",
+      "creator": null,
+      "url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvZnJidWlsZGluZ19wcm9mZXNzaW9uYWxfZW1wbG95ZWVfMTA4MDU4OS1pbWFnZS1reWJlNDk3Ni5qcGc.jpg",
+      "landing": "https://www.rawpixel.com/image/6040399/photo-image-public-domain-house-person"
+    },
+    {
+      "file": "stock/10-closing-a.jpg",
+      "stage": 10,
+      "license": "cc0-1.0",
+      "source": "rawpixel",
+      "title": "House construction",
+      "creator": null,
+      "url": "https://images.rawpixel.com/editor_1024/cHJpdmF0ZS9zdGF0aWMvaW1hZ2Uvd2Vic2l0ZS8yMDIyLTA0L2xyL2ZybmV3X2hvbWVfY29uc3RydWN0aW9uX2J1aWxkXzMtaW1hZ2Uta3liZDN1OXouanBn.jpg",
+      "landing": "https://www.rawpixel.com/image/6034184/photo-image-frame-public-domain-wood"
+    },
+    {
+      "file": "stock/10-closing-b.jpg",
+      "stage": 10,
+      "license": "cc0-1.0",
+      "source": "rawpixel",
+      "title": null,
+      "creator": null,
+      "url": "https://images.rawpixel.com/editor_1024/cHJpdmF0ZS9zdGF0aWMvaW1hZ2Uvd2Vic2l0ZS8yMDIyLTA0L2xyL3B4MTEwNzQxNi1pbWFnZS1rd3lyODliMC5qcGc.jpg",
+      "landing": "https://www.rawpixel.com/image/5962312/free-public-domain-cc0-photo"
+    }
+  ]
+}

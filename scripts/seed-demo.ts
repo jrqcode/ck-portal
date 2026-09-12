@@ -22,16 +22,30 @@ import { BUILD_STAGES } from '../src/constants/build-stages';
 import { DEMO_ACCOUNTS } from '../src/lib/demo';
 import type { Database, StageStatus } from '../src/types/database';
 import { PEOPLE, PROJECTS, type DemoProject, type PersonKey } from './demo/content';
-import { drawStagePhoto, loadSuppliedPhotos } from './demo/images';
+import { EMPTY_LIBRARY, loadPhotoFolder, photoFor } from './demo/images';
 import { samplePdf } from './demo/pdf';
 
 const PHOTO_BUCKET = 'project-photos';
 const DOCUMENT_BUCKET = 'project-documents';
-/** Drop real job-site photos in here and they are used instead of the drawings. */
+/** Drop real job-site photos in here and they are used instead of everything else. */
 const SUPPLIED_PHOTOS_DIR = path.join(process.cwd(), 'demo-photos');
+/** The curated CC0 set that ships with the repo. See demo/photo-sources.json. */
+const STOCK_PHOTOS_DIR = path.join(
+  path.dirname(new URL(import.meta.url).pathname),
+  'demo',
+  'stock'
+);
 
 const args = process.argv.slice(2);
 const dryRun = args.includes('--dry-run');
+/**
+ * Re-seed the builds without touching the accounts. Everything except creating
+ * auth users runs as the demo builder through RLS, so this needs no
+ * service-role key — handy for swapping the photos on a demo that already runs.
+ */
+const skipAccounts = args.includes('--skip-accounts');
+/** Ignore the stock photos and draw the illustrations instead. */
+const noStock = args.includes('--no-stock');
 const outIndex = args.indexOf('--out');
 const outDir = outIndex >= 0 ? args[outIndex + 1] : null;
 
@@ -104,6 +118,33 @@ async function ensureUsers(admin: Client, password: string) {
     if (error) throw new Error(`Could not update the profile for ${person.email}: ${error.message}`);
   }
 
+  return ids;
+}
+
+/**
+ * The ids of accounts a previous run already created, matched on the names in
+ * demo/content.ts. Used by --skip-accounts, where there is no service-role key
+ * and therefore no way to read auth.users — staff can read every profile, and
+ * the demo names are unique, so that is enough.
+ */
+async function lookupUsers(staff: Client) {
+  const { data, error } = await staff.from('profiles').select('id, full_name');
+  if (error) throw new Error(`Could not read the profiles: ${error.message}`);
+
+  const byName = new Map((data ?? []).map((row) => [row.full_name, row.id]));
+  const ids = new Map<PersonKey, string>();
+
+  for (const person of PEOPLE) {
+    const id = byName.get(person.fullName);
+    if (!id) {
+      throw new Error(
+        `No account for ${person.fullName}. Run without --skip-accounts (needs SUPABASE_SERVICE_ROLE_KEY) to create them.`
+      );
+    }
+    ids.set(person.key, id);
+  }
+
+  console.log(`  found ${ids.size} existing accounts`);
   return ids;
 }
 
@@ -223,30 +264,38 @@ async function main() {
     }
   }
 
-  const supplied = await loadSuppliedPhotos(SUPPLIED_PHOTOS_DIR);
-  console.log(
-    supplied.length
-      ? `Using ${supplied.length} photo(s) from demo-photos/.`
-      : 'No demo-photos/ folder — drawing placeholder illustrations.'
-  );
+  // Your own photos win; then the curated CC0 stock set; then drawings.
+  let library = await loadPhotoFolder(SUPPLIED_PHOTOS_DIR, 'photo(s) from demo-photos/');
+  if (!library.byStage.size && !library.general.length && !noStock) {
+    library = await loadPhotoFolder(STOCK_PHOTOS_DIR, 'CC0 stock photo(s)');
+  }
+  if (library === EMPTY_LIBRARY) {
+    console.log('Photos: generated illustrations.');
+  } else {
+    console.log(`Photos: ${library.description}.`);
+  }
 
   if (outDir) await mkdir(outDir, { recursive: true });
 
   let staff: Client;
-  let userIds: Map<PersonKey, string>;
+  let userIds = new Map<PersonKey, string>();
 
   if (dryRun) {
     console.log('\nDry run: nothing will be written to Supabase.\n');
     staff = null as unknown as Client;
     userIds = new Map(PEOPLE.map((person) => [person.key, `dry-${person.key}`]));
   } else {
-    const serviceKey = required('SUPABASE_SERVICE_ROLE_KEY');
-    const admin = createClient<Database>(url, serviceKey, {
-      auth: { autoRefreshToken: false, persistSession: false }
-    });
-
     console.log('\nAccounts');
-    userIds = await ensureUsers(admin, password);
+
+    if (skipAccounts) {
+      console.log('  --skip-accounts: reusing the accounts already there');
+    } else {
+      const serviceKey = required('SUPABASE_SERVICE_ROLE_KEY');
+      const admin = createClient<Database>(url, serviceKey, {
+        auth: { autoRefreshToken: false, persistSession: false }
+      });
+      userIds = await ensureUsers(admin, password);
+    }
 
     // Everything from here runs as the demo builder, through RLS.
     staff = createClient<Database>(url, anonKey, {
@@ -258,13 +307,14 @@ async function main() {
     });
     if (error) throw new Error(`Could not sign in as ${DEMO_ACCOUNTS.staff.email}: ${error.message}`);
 
+    if (skipAccounts) userIds = await lookupUsers(staff);
+
     console.log('\nPrevious demo data');
     await clearPreviousDemo(staff);
   }
 
   let photoCount = 0;
   let documentCount = 0;
-  let suppliedCursor = 0;
 
   console.log('\nBuilds');
   for (const project of PROJECTS) {
@@ -334,9 +384,7 @@ async function main() {
       }
 
       for (let index = 0; index < update.photos; index++) {
-        const image = supplied.length
-          ? supplied[suppliedCursor++ % supplied.length]
-          : await drawStagePhoto(update.stage, photoSeed(update.title, index), index);
+        const image = await photoFor(library, update.stage, index, photoSeed(update.title, index));
 
         // Storage policies read the first path segment, so the project id leads.
         const storagePath = `${id}/${updateId}/${crypto.randomUUID()}.jpg`;
