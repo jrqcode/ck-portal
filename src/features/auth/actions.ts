@@ -3,6 +3,7 @@
 import { createClient } from '@/lib/supabase/server';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
+import { DEMO_ACCOUNTS, demoEnabled, isDemoRole } from '@/lib/demo';
 
 export type AuthState = { error?: string; sent?: boolean };
 
@@ -65,4 +66,39 @@ export async function signOut() {
   const supabase = await createClient();
   await supabase.auth.signOut();
   redirect('/sign-in');
+}
+
+/**
+ * One-click sign-in as a seeded demo account.
+ *
+ * A browser holds exactly one Supabase session, so viewing the builder side and
+ * the homeowner side means swapping sessions — this signs the current one out
+ * first rather than leaving the caller to clear cookies.
+ *
+ * Gated on NEXT_PUBLIC_DEMO_MODE and on the two known demo addresses: it can
+ * never sign anyone into a real account, and with demo mode off it does nothing
+ * at all.
+ */
+export async function signInAsDemo(formData: FormData) {
+  if (!demoEnabled) redirect('/sign-in');
+
+  const role = formData.get('role');
+  if (!isDemoRole(role)) redirect('/sign-in');
+
+  const password = process.env.DEMO_PASSWORD;
+  if (!password) redirect('/sign-in?demo=unavailable');
+
+  const account = DEMO_ACCOUNTS[role];
+  const supabase = await createClient();
+
+  await supabase.auth.signOut();
+  const { error } = await supabase.auth.signInWithPassword({
+    email: account.email,
+    password
+  });
+
+  // Almost always means the demo data has not been seeded into this project yet.
+  if (error) redirect('/sign-in?demo=unavailable');
+
+  redirect(account.home);
 }

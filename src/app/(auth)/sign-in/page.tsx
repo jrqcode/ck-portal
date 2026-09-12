@@ -1,4 +1,6 @@
 import { SignInForm } from '@/features/auth/sign-in-form';
+import { DemoSignIn } from '@/features/auth/demo-sign-in';
+import { demoEnabled } from '@/lib/demo';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = { title: 'Sign in' };
@@ -6,9 +8,9 @@ export const metadata: Metadata = { title: 'Sign in' };
 export default async function SignInPage({
   searchParams
 }: {
-  searchParams: Promise<{ next?: string }>;
+  searchParams: Promise<{ next?: string; demo?: string }>;
 }) {
-  const { next } = await searchParams;
+  const { next, demo } = await searchParams;
   const target = next?.startsWith('/') && !next.startsWith('//') ? next : '/';
 
   return (
@@ -23,6 +25,17 @@ export default async function SignInPage({
       </div>
 
       <SignInForm next={target} />
+
+      {demoEnabled && (
+        <>
+          {demo === 'unavailable' && (
+            <p role='alert' className='mt-8 text-center text-sm text-destructive'>
+              The demo accounts are not set up on this deployment yet.
+            </p>
+          )}
+          <DemoSignIn />
+        </>
+      )}
 
       <p className='mt-10 text-center text-[13px] leading-[1.23] text-muted-foreground'>
         Accounts are set up by Caiden-Keller Homes. If you need access, get in touch with your

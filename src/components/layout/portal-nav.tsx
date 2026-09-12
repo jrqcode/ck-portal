@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Wordmark } from '@/components/wordmark';
+import { signOut } from '@/features/auth/actions';
 import { cn } from '@/lib/utils';
 
 const LINKS = [
@@ -46,12 +47,28 @@ export function PortalNav({ name }: { name: string }) {
           </ul>
         </nav>
 
-        <Link
-          href='/account'
-          className='flex h-11 items-center rounded-[8px] px-3 text-sm text-muted-foreground hover:text-ink'
-        >
-          {name}
-        </Link>
+        <div className='flex shrink-0 items-center'>
+          <Link
+            href='/account'
+            className='flex h-11 items-center rounded-[8px] px-3 text-sm text-muted-foreground hover:text-ink'
+          >
+            {name}
+          </Link>
+          {/* Sign-out lived only on the account page. Homeowners sign in twice a
+              month and should not have to hunt for the way back out.
+
+              Below 744px the wordmark and both links do not fit on one row, so
+              the phone keeps the account link alone — sign-out is one tap
+              further in, on the page it points at. */}
+          <form action={signOut} className='hidden md:block'>
+            <button
+              type='submit'
+              className='flex h-11 items-center rounded-[8px] px-3 text-sm text-muted-foreground hover:text-ink'
+            >
+              Sign out
+            </button>
+          </form>
+        </div>
       </div>
 
       {/* Below 744px the nav moves under the wordmark rather than into a menu —
